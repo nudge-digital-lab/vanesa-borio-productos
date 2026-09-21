@@ -1,0 +1,1163 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<meta name="color-scheme" content="light dark">
+<title>Vanesa Borio — Verificación de productos</title>
+<meta property="og:type" content="website">
+<meta property="og:title" content="Vanesa Borio — Verificación de productos">
+<meta property="og:description" content="Revisá los productos antes de cargar la tienda: aprobá lo que está bien y pedí los cambios que haga falta.">
+<meta name="description" content="Revisá los productos antes de cargar la tienda: aprobá lo que está bien y pedí los cambios que haga falta.">
+</head>
+<body><style>
+:root{
+  --mirror:#17141A;
+  --marble:#F4F3F5;
+  --slate:#6E6873;
+  --copper:#9C5B2C;
+  --copper-soft:#F2E4D9;
+
+  --bg:var(--marble);
+  --surface:#FFFFFF;
+  --surface-2:#EDEBEF;
+  --fg:#211D25;
+  --fg-muted:var(--slate);
+  --line:#DCD8E0;
+  --line-strong:#C3BDC9;
+  --accent:var(--copper);
+  --accent-bg:var(--copper-soft);
+  --on-accent:#FFFFFF;
+
+  --ok:#3D6B4A;      --ok-bg:#E6F0E8;
+  --check:#8A6412;   --check-bg:#F8EEDA;
+  --gap-c:#9B3242;   --gap-bg:#FAE7E9;
+
+  --display:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --ui:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --mono:ui-monospace,"SF Mono",SFMono-Regular,Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --bg:var(--mirror); --surface:#211D26; --surface-2:#2A2531;
+    --fg:#EFEAF2; --fg-muted:#A79FAF; --line:#342E3C; --line-strong:#463E50;
+    --accent:#D68C55; --accent-bg:#3A2418; --on-accent:#1B1419;
+    --ok:#8FCCA0;    --ok-bg:#1B2E20;
+    --check:#E2B463; --check-bg:#332714;
+    --gap-c:#EE97A2; --gap-bg:#3A1A20;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:var(--mirror); --surface:#211D26; --surface-2:#2A2531;
+  --fg:#EFEAF2; --fg-muted:#A79FAF; --line:#342E3C; --line-strong:#463E50;
+  --accent:#D68C55; --accent-bg:#3A2418; --on-accent:#1B1419;
+  --ok:#8FCCA0;    --ok-bg:#1B2E20;
+  --check:#E2B463; --check-bg:#332714;
+  --gap-c:#EE97A2; --gap-bg:#3A1A20;
+}
+:root[data-theme="light"]{
+  --bg:var(--marble); --surface:#FFFFFF; --surface-2:#EDEBEF;
+  --fg:#211D25; --fg-muted:var(--slate); --line:#DCD8E0; --line-strong:#C3BDC9;
+  --accent:var(--copper); --accent-bg:var(--copper-soft);
+  --ok:#3D6B4A;    --ok-bg:#E6F0E8;
+  --check:#8A6412; --check-bg:#F8EEDA;
+  --gap-c:#9B3242; --gap-bg:#FAE7E9;
+}
+
+*{box-sizing:border-box}
+body{
+  margin:0;background:var(--bg);color:var(--fg);
+  font:16px/1.6 var(--ui);
+  -webkit-font-smoothing:antialiased;
+}
+.page{max-width:1080px;margin:0 auto;padding:clamp(28px,5vw,64px) clamp(18px,4vw,40px) 96px}
+
+/* ---------- encabezado ---------- */
+.eyebrow{
+  font:600 11px/1 var(--ui);letter-spacing:.16em;text-transform:uppercase;
+  color:var(--accent);margin:0 0 18px;
+}
+h1{
+  font:400 clamp(2rem,5vw,3.1rem)/1.08 var(--display);
+  letter-spacing:-.02em;margin:0 0 16px;text-wrap:balance;
+}
+.lede{
+  font-size:clamp(1rem,2.2vw,1.12rem);color:var(--fg-muted);
+  max-width:62ch;margin:0 0 30px;
+}
+.lede strong{color:var(--fg);font-weight:600}
+
+.ask{
+  background:var(--surface);border:1px solid var(--line);
+  border-top:3px solid var(--accent);
+  border-radius:4px;padding:22px 24px;margin:0 0 40px;
+}
+.ask h2{font:600 .95rem/1.3 var(--ui);letter-spacing:.02em;margin:0 0 12px}
+.ask ol{margin:0;padding-left:1.25em;display:flex;flex-direction:column;gap:9px}
+.ask li{color:var(--fg-muted);font-size:.95rem}
+.ask li strong{color:var(--fg)}
+
+/* ---------- resumen ---------- */
+.tally{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));
+  gap:1px;background:var(--line);border:1px solid var(--line);
+  border-radius:4px;overflow:hidden;margin:0 0 52px;
+}
+.tally div{background:var(--surface);padding:16px 18px}
+.tally .num{
+  font:400 2rem/1 var(--display);display:block;margin-bottom:5px;
+  font-variant-numeric:tabular-nums;
+}
+.tally .lbl{font-size:.78rem;color:var(--fg-muted);letter-spacing:.03em}
+.tally .c-ok .num{color:var(--ok)}
+.tally .c-check .num{color:var(--check)}
+.tally .c-gap .num{color:var(--gap-c)}
+
+/* ---------- secciones ---------- */
+section{margin:0 0 56px;scroll-margin-top:20px}
+.sec-head{
+  display:flex;align-items:baseline;gap:14px;flex-wrap:wrap;
+  padding-bottom:10px;border-bottom:1px solid var(--line-strong);margin-bottom:8px;
+}
+.sec-head h2{font:400 1.6rem/1.2 var(--display);margin:0;letter-spacing:-.01em}
+.sec-head .count{
+  font:500 .76rem/1 var(--mono);color:var(--fg-muted);
+  background:var(--surface-2);padding:5px 9px;border-radius:3px;
+}
+.sec-note{
+  color:var(--fg-muted);font-size:.93rem;margin:14px 0 0;max-width:68ch;
+}
+.sec-note strong{color:var(--fg)}
+
+/* ---------- fichas ---------- */
+.items{display:flex;flex-direction:column;gap:14px;margin-top:22px}
+.item{
+  background:var(--surface);border:1px solid var(--line);border-radius:4px;
+  display:grid;grid-template-columns:132px 1fr;gap:0;overflow:hidden;
+}
+.item.flag-gap{border-left:3px solid var(--gap-c)}
+.item.flag-check{border-left:3px solid var(--check)}
+.thumb{
+  background:var(--surface-2);position:relative;
+  display:flex;align-items:center;justify-content:center;min-height:150px;
+}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .nofoto{
+  font:500 .72rem/1.4 var(--ui);color:var(--fg-muted);text-align:center;
+  padding:12px;letter-spacing:.03em;
+}
+.meat{padding:16px 20px 18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.topline{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.sku{
+  font:600 .75rem/1 var(--mono);letter-spacing:.04em;
+  color:var(--accent);background:var(--accent-bg);
+  padding:5px 8px;border-radius:3px;white-space:nowrap;
+}
+.name{font:600 1.06rem/1.3 var(--ui);margin:0;letter-spacing:-.01em}
+.price{
+  margin-left:auto;font:600 1rem/1 var(--ui);
+  font-variant-numeric:tabular-nums;white-space:nowrap;
+}
+.price.none{color:var(--gap-c);font-weight:600;font-size:.86rem}
+.desc{font-size:.93rem;color:var(--fg-muted);margin:0}
+.meta{
+  display:flex;gap:8px;flex-wrap:wrap;align-items:center;
+  font-size:.78rem;color:var(--fg-muted);margin-top:auto;padding-top:4px;
+}
+.cat{
+  background:var(--surface-2);padding:4px 9px;border-radius:3px;
+  letter-spacing:.02em;
+}
+.fn{font-family:var(--mono);font-size:.7rem;opacity:.75;word-break:break-all}
+.chip{
+  font:700 .68rem/1 var(--ui);letter-spacing:.06em;text-transform:uppercase;
+  padding:5px 9px;border-radius:99px;white-space:nowrap;
+}
+.chip.ok{background:var(--ok-bg);color:var(--ok)}
+.chip.check{background:var(--check-bg);color:var(--check)}
+.chip.gap{background:var(--gap-bg);color:var(--gap-c)}
+.q{
+  background:var(--gap-bg);color:var(--gap-c);
+  border-radius:3px;padding:9px 12px;font-size:.86rem;font-weight:500;
+}
+.q.soft{background:var(--check-bg);color:var(--check)}
+
+/* ---------- matriz tabletas ---------- */
+.scroller{overflow-x:auto;margin-top:22px;border:1px solid var(--line);border-radius:4px}
+table{border-collapse:collapse;width:100%;min-width:640px;background:var(--surface)}
+caption{
+  text-align:left;padding:14px 18px;font-size:.88rem;color:var(--fg-muted);
+  border-bottom:1px solid var(--line);background:var(--surface-2);
+}
+th,td{padding:11px 14px;text-align:left;border-bottom:1px solid var(--line);font-size:.9rem}
+thead th{
+  font:600 .72rem/1.2 var(--ui);letter-spacing:.07em;text-transform:uppercase;
+  color:var(--fg-muted);background:var(--surface-2);white-space:nowrap;
+}
+tbody th{font-weight:600;white-space:nowrap}
+td.sku-c{font-family:var(--mono);font-size:.76rem;color:var(--accent);white-space:nowrap}
+td.ask-c{color:var(--gap-c);font-weight:600;font-size:.82rem}
+tbody tr:last-child th,tbody tr:last-child td{border-bottom:0}
+
+/* ---------- cierre ---------- */
+.closing{
+  background:var(--surface);border:1px solid var(--line);
+  border-radius:4px;padding:26px 28px;margin-top:64px;
+}
+.closing h2{font:400 1.45rem/1.2 var(--display);margin:0 0 6px}
+.closing p{color:var(--fg-muted);font-size:.95rem;margin:0 0 18px;max-width:64ch}
+.todo{display:flex;flex-direction:column;gap:11px;margin:0;padding:0;list-style:none}
+.todo li{
+  display:grid;grid-template-columns:auto 1fr;gap:12px;align-items:start;
+  padding:12px 14px;background:var(--surface-2);border-radius:3px;font-size:.93rem;
+}
+.todo .mark{
+  width:17px;height:17px;border:1.5px solid var(--line-strong);
+  border-radius:2px;margin-top:3px;flex:none;
+}
+.todo b{display:block;margin-bottom:2px}
+.todo span.det{color:var(--fg-muted);font-size:.88rem}
+
+footer{
+  margin-top:48px;padding-top:20px;border-top:1px solid var(--line);
+  color:var(--fg-muted);font-size:.84rem;
+}
+
+/* ---------- controles de revisiÃ³n ---------- */
+.review{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin-top:2px}
+.rbtn{
+  font:600 .82rem/1 var(--ui);padding:9px 14px;border-radius:3px;cursor:pointer;
+  border:1.5px solid var(--line-strong);background:transparent;color:var(--fg-muted);
+  transition:background .12s,border-color .12s,color .12s;
+}
+.rbtn:hover{border-color:var(--accent);color:var(--fg)}
+.rbtn:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.rbtn[aria-pressed="true"].yes{background:var(--ok-bg);border-color:var(--ok);color:var(--ok)}
+.rbtn[aria-pressed="true"].no{background:var(--gap-bg);border-color:var(--gap-c);color:var(--gap-c)}
+.fix{
+  display:none;width:100%;margin-top:8px;padding:10px 12px;
+  font:400 .92rem/1.5 var(--ui);color:var(--fg);
+  background:var(--surface-2);border:1.5px solid var(--line-strong);border-radius:3px;
+  resize:vertical;min-height:68px;
+}
+.fix:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+.fix.on{display:block}
+
+.price-in,.txt-in{
+  font:500 .88rem/1 var(--ui);font-variant-numeric:tabular-nums;
+  padding:8px 10px;border:1.5px solid var(--line-strong);border-radius:3px;
+  background:var(--surface);color:var(--fg);width:120px;
+}
+.price-in:focus,.txt-in:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+td label{display:flex;align-items:center;gap:7px;cursor:pointer;font-size:.8rem}
+td input[type=checkbox]{width:17px;height:17px;accent-color:var(--accent);cursor:pointer;flex:none}
+
+.answers{display:flex;flex-direction:column;gap:16px;margin-top:20px}
+.answers label{display:flex;flex-direction:column;gap:7px}
+.answers .qlab{font:600 .92rem/1.35 var(--ui)}
+.answers .qhint{font-weight:400;color:var(--fg-muted);font-size:.86rem;display:block;margin-top:2px}
+.answers textarea{
+  font:400 .93rem/1.5 var(--ui);color:var(--fg);padding:11px 13px;
+  background:var(--surface);border:1.5px solid var(--line-strong);border-radius:3px;
+  resize:vertical;min-height:62px;width:100%;
+}
+.answers textarea:focus{outline:2px solid var(--accent);outline-offset:1px;border-color:var(--accent)}
+
+/* ---------- barra de envÃ­o ---------- */
+.sendbar{
+  position:sticky;bottom:0;z-index:20;margin:44px -8px 0;
+  background:var(--surface);border:1px solid var(--line-strong);
+  border-radius:5px;padding:16px 20px;
+  box-shadow:0 -6px 24px rgba(0,0,0,.09);
+  display:flex;align-items:center;gap:16px;flex-wrap:wrap;
+}
+.prog{display:flex;flex-direction:column;gap:5px;min-width:180px;flex:1}
+.prog .pnum{font:600 .9rem/1 var(--ui);font-variant-numeric:tabular-nums}
+.prog .bar{height:5px;background:var(--surface-2);border-radius:99px;overflow:hidden}
+.prog .bar i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+.acts{display:flex;gap:9px;flex-wrap:wrap}
+.send,.copy{
+  font:600 .9rem/1 var(--ui);padding:13px 20px;border-radius:3px;cursor:pointer;
+  border:1.5px solid transparent;text-decoration:none;display:inline-block;
+}
+.send{background:var(--accent);color:var(--on-accent);border-color:var(--accent)}
+.send:hover{filter:brightness(1.07)}
+.copy{background:transparent;color:var(--fg);border-color:var(--line-strong)}
+.copy:hover{border-color:var(--accent)}
+.send:focus-visible,.copy:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.toast{
+  width:100%;font-size:.84rem;color:var(--fg-muted);margin:0;
+}
+.toast.warn{color:var(--check)}
+.toast.done{color:var(--ok);font-weight:600}
+
+@media (max-width:640px){
+  .item{grid-template-columns:1fr}
+  .thumb{min-height:200px;max-height:240px}
+  .price{margin-left:0;width:100%}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="page">
+
+<p class="eyebrow">Vanesa Borio Â· Chocolates</p>
+<h1>VerificaciÃ³n de productos antes de cargar la tienda</h1>
+<p class="lede">
+  Armamos este listado con todo lo que nos pasaste por WhatsApp y con las fotos que mandaste.
+  Antes de cargarlo en la tienda necesitamos que lo mires y nos digas quÃ© estÃ¡ bien y quÃ© hay que corregir.
+  <strong>Cada producto tiene un cÃ³digo (SKU)</strong> â€” alcanza con que nos respondas usando ese cÃ³digo,
+  asÃ­ no hay confusiÃ³n posible.
+</p>
+
+<div class="ask">
+  <h2>CÃ³mo leer este documento</h2>
+  <ol>
+    <li><strong>Verde</strong> â€” estÃ¡ completo y lo cargamos tal cual, salvo que nos digas lo contrario.</li>
+    <li><strong>Amarillo</strong> â€” hay algo que queremos confirmar con vos antes de publicarlo.</li>
+    <li><strong>Rojo</strong> â€” nos falta un dato sin el cual no se puede cargar, casi siempre el precio.</li>
+  </ol>
+</div>
+
+<div class="tally">
+  <div class="c-ok"><span class="num">7</span><span class="lbl">Listos para cargar</span></div>
+  <div class="c-check"><span class="num">6</span><span class="lbl">A confirmar con vos</span></div>
+  <div class="c-gap"><span class="num">10</span><span class="lbl">Falta precio o info</span></div>
+  <div><span class="num">20</span><span class="lbl">Variantes de tableta sin precio</span></div>
+</div>
+
+
+<!-- ============ BOMBONES ============ -->
+<section>
+  <div class="sec-head">
+    <h2>Bombones</h2>
+    <span class="count">6 productos</span>
+  </div>
+  <p class="sec-note">
+    Nos dijiste que son <strong>10 rellenos</strong> y que cada diseÃ±o corresponde a uno distinto. En las fotos
+    contamos alrededor de 14 diseÃ±os diferentes, asÃ­ que puede haber mÃ¡s rellenos de los que nos pasaste,
+    o varios diseÃ±os para un mismo sabor. <strong>Es lo mÃ¡s importante que necesitamos que nos aclares.</strong>
+  </p>
+  <div class="items">
+
+    <div class="item">
+      <div class="thumb" data-img="IMG_3435.JPG"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">BOM-04</span>
+          <h3 class="name">Box 4 bombones</h3>
+          <span class="price">$16.000</span>
+        </div>
+        <p class="desc">Cuatro bombones de autor en caja negra con el sello Vanesa Borio.
+          Rellenos a base de ganache, elaborados 100% a mano con chocolate belga y pintados uno por uno.</p>
+        <div class="meta"><span class="cat">Bombones</span><span class="chip ok">Listo</span>
+          <span class="fn">IMG_3435.JPG</span></div>
+      </div>
+    </div>
+
+    <div class="item flag-check">
+      <div class="thumb" data-img="IMG_3665.JPG"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">BOM-07</span>
+          <h3 class="name">Box 7 bombones</h3>
+          <span class="price">$27.000</span>
+        </div>
+        <p class="desc">Siete bombones surtidos en caja negra. Una selecciÃ³n mÃ¡s amplia para regalar o compartir.</p>
+        <div class="q soft">No tenemos una foto de esta caja en particular. Â¿QuerÃ©s que usemos una general de bombones
+          o nos mandÃ¡s una del box de 7?</div>
+        <div class="meta"><span class="cat">Bombones</span><span class="chip check">Confirmar</span>
+          <span class="fn">falta foto propia</span></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="thumb" data-img="IMG_3841.JPG"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">BOM-15</span>
+          <h3 class="name">Box 15 bombones</h3>
+          <span class="price">$55.000</span>
+        </div>
+        <p class="desc">Quince bombones surtidos. El formato para regalo grande, con la variedad completa de diseÃ±os
+          y rellenos a la vista al abrir la caja.</p>
+        <div class="meta"><span class="cat">Bombones</span><span class="chip ok">Listo</span>
+          <span class="fn">IMG_3841.JPG</span></div>
+      </div>
+    </div>
+
+    <div class="item flag-check">
+      <div class="thumb" data-img="IMG_3671.JPG"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">BOM-21</span>
+          <h3 class="name">Box 21 bombones</h3>
+          <span class="price">$72.000</span>
+        </div>
+        <p class="desc">VeintiÃºn bombones en caja de tres bandejas, con el nombre grabado en relieve sobre la tapa.</p>
+        <div class="q soft">Usamos la foto de la caja de tres bandejas. Confirmanos si es efectivamente la de 21.</div>
+        <div class="meta"><span class="cat">Bombones</span><span class="chip check">Confirmar</span>
+          <span class="fn">IMG_3671.JPG</span></div>
+      </div>
+    </div>
+
+    <div class="item flag-check">
+      <div class="thumb" data-img="IMG_3667.JPG"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">BOM-42</span>
+          <h3 class="name">Box 42 bombones</h3>
+          <span class="price">$140.000</span>
+        </div>
+        <p class="desc">El box mÃ¡s grande: cuarenta y dos bombones. Pensado para eventos, fin de aÃ±o y regalo corporativo.</p>
+        <div class="q soft">No tenemos ninguna foto de esta caja. Si existe, mandanos una; si no, lo publicamos
+          con una foto general de bombones.</div>
+        <div class="meta"><span class="cat">Bombones</span><span class="chip check">Confirmar</span>
+          <span class="fn">falta foto</span></div>
+      </div>
+    </div>
+
+    <div class="item flag-gap">
+      <div class="thumb"><span class="nofoto">Sin foto</span></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">BOM-SNK</span>
+          <h3 class="name">Snack con gianduja</h3>
+          <span class="price">$7.500</span>
+        </div>
+        <p class="desc">â€”</p>
+        <div class="q">Este aparece en tu lista de precios pero nunca nos contaste quÃ© es.
+          Necesitamos saber <strong>quÃ© contiene, quÃ© tamaÃ±o o peso tiene y cÃ³mo se presenta</strong>, y una foto.</div>
+        <div class="meta"><span class="cat">Bombones</span><span class="chip gap">Falta info</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============ ALFAJORES ============ -->
+<section>
+  <div class="sec-head">
+    <h2>Alfajores</h2>
+    <span class="count">5 productos</span>
+  </div>
+  <p class="sec-note">
+    Todos los boxes son de <strong>6 unidades de aproximadamente 80 gramos</strong> cada una.
+    Un detalle importante: mirando las fotos <strong>no hay manera de distinguir un alfajor de mango de uno de
+    maracuyÃ¡</strong> â€”los dos van con cobertura blancaâ€” ni uno de frutos rojos de uno de frambuesa.
+    Si querÃ©s que cada sabor tenga su propia foto, vas a tener que indicarnos cuÃ¡l es cuÃ¡l.
+  </p>
+  <div class="items">
+
+    <div class="item">
+      <div class="thumb" data-img="IMG_3863.JPG"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">ALF-DDL-06</span>
+          <h3 class="name">Box x6 alfajores de dulce de leche</h3>
+          <span class="price">$33.000</span>
+        </div>
+        <p class="desc">Tapas sablÃ©e de cacao rellenas con dulce de leche. Dos con cobertura de chocolate blanco,
+          dos con chocolate con leche y dos con semiamargo 54,5% de cacao.</p>
+        <div class="meta"><span class="cat">Alfajores</span><span class="chip ok">Listo</span>
+          <span class="fn">IMG_3863.JPG</span></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="thumb" data-img="IMG_3951.JPG"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">ALF-AM80-06</span>
+          <h3 class="name">Box x6 alfajores amargo 80%</h3>
+          <span class="price">$35.000</span>
+        </div>
+        <p class="desc">Seis alfajores de tapas sablÃ©e de cacao rellenos con dulce de leche y baÃ±ados en chocolate
+          amargo 80% de cacao. El mÃ¡s intenso de la lÃ­nea.</p>
+        <div class="meta"><span class="cat">Alfajores</span><span class="chip ok">Listo</span>
+          <span class="fn">IMG_3951.JPG</span></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="thumb" data-img="IMG_3932.JPG"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">ALF-MIX-06</span>
+          <h3 class="name">Box x6 alfajores mix frutales</h3>
+          <span class="price">$35.000</span>
+        </div>
+        <p class="desc">Cuatro alfajores frutales â€”mango y maracuyÃ¡ con cobertura de chocolate blanco, frutos rojos
+          y frambuesa con semiamargo 54,5%â€” mÃ¡s dos de dulce de leche. Los frutales llevan mermelada artesanal
+          con una contenciÃ³n de dulce de leche alrededor.</p>
+        <div class="meta"><span class="cat">Alfajores</span><span class="chip ok">Listo</span>
+          <span class="fn">IMG_3932.JPG</span></div>
+      </div>
+    </div>
+
+    <div class="item flag-check">
+      <div class="thumb"><span class="nofoto">Sin foto</span></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">ALF-MINI-06</span>
+          <h3 class="name">Minialfajores x6</h3>
+          <span class="price">$15.000</span>
+        </div>
+        <p class="desc">Seis minialfajores rellenos de dulce de leche con cobertura de chocolate con leche.</p>
+        <div class="q soft">No hay ninguna foto de minialfajores en lo que nos mandaste. Hace falta una.</div>
+        <div class="meta"><span class="cat">Alfajores</span><span class="chip check">Falta foto</span></div>
+      </div>
+    </div>
+
+    <div class="item flag-gap">
+      <div class="thumb"><span class="nofoto">Sin foto</span></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">ALF-MINIGAL</span>
+          <h3 class="name">Box minialfajores y galesas</h3>
+          <span class="price">$15.000</span>
+        </div>
+        <p class="desc">â€”</p>
+        <div class="q">No sabemos <strong>cuÃ¡ntos minialfajores y cuÃ¡ntas galesas</strong> trae este box.
+          Contanos la composiciÃ³n exacta y mandanos una foto.</div>
+        <div class="meta"><span class="cat">Alfajores</span><span class="chip gap">Falta info</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============ TABLETAS ============ -->
+<section>
+  <div class="sec-head">
+    <h2>Tabletas</h2>
+    <span class="count">hasta 20 variantes</span>
+  </div>
+  <p class="sec-note">
+    <strong>AcÃ¡ es donde mÃ¡s te necesitamos.</strong> Nos pasaste cuatro tipos de chocolate y cinco presentaciones,
+    lo que da veinte combinaciones posibles â€” pero no sabemos cuÃ¡les hacÃ©s realmente ni cuÃ¡nto sale ninguna.
+    <strong>Es la Ãºnica lÃ­nea entera sin un solo precio.</strong> Te dejamos la grilla para que tachÃ©s lo que
+    no exista y nos pongas el precio al lado de lo que sÃ­.
+  </p>
+
+  <div class="scroller">
+    <table>
+      <caption>MarcÃ¡ las que elaborÃ¡s y completÃ¡ el precio de cada una.</caption>
+      <thead>
+        <tr>
+          <th>PresentaciÃ³n</th>
+          <th>Blanco</th>
+          <th>Con leche</th>
+          <th>Semiamargo 54,5%</th>
+          <th>Amargo 80%</th>
+          <th>Precio</th>
+        </tr>
+      </thead>
+      <tbody id="tab-grid">
+        <tr data-row="Maciza 50 g">
+          <th>Maciza 50 g</th>
+          <td><label><input type="checkbox" data-sku="TAB-BL-50"><span class="sku-c">TAB-BL-50</span></label></td>
+          <td><label><input type="checkbox" data-sku="TAB-CL-50"><span class="sku-c">TAB-CL-50</span></label></td>
+          <td><label><input type="checkbox" data-sku="TAB-SA-50"><span class="sku-c">TAB-SA-50</span></label></td>
+          <td><label><input type="checkbox" data-sku="TAB-AM-50"><span class="sku-c">TAB-AM-50</span></label></td>
+          <td><input class="price-in" type="text" inputmode="numeric" placeholder="$" data-price="Maciza 50 g"></td>
+        </tr>
+        <tr data-row="Maciza 100 g">
+          <th>Maciza 100 g</th>
+          <td><label><input type="checkbox" data-sku="TAB-BL-100"><span class="sku-c">TAB-BL-100</span></label></td>
+          <td><label><input type="checkbox" data-sku="TAB-CL-100"><span class="sku-c">TAB-CL-100</span></label></td>
+          <td><label><input type="checkbox" data-sku="TAB-SA-100"><span class="sku-c">TAB-SA-100</span></label></td>
+          <td><label><input type="checkbox" data-sku="TAB-AM-100"><span class="sku-c">TAB-AM-100</span></label></td>
+          <td><input class="price-in" type="text" inputmode="numeric" placeholder="$" data-price="Maciza 100 g"></td>
+        </tr>
+        <tr data-row="Rellena de dulce de leche 100 g">
+          <th>Rellena de dulce de leche 100 g</th>
+          <td><label><input type="checkbox" data-sku="TAB-BL-DDL"><span class="sku-c">TAB-BL-DDL</span></label></td>
+          <td><label><input type="checkbox" data-sku="TAB-CL-DDL"><span class="sku-c">TAB-CL-DDL</span></label></td>
+          <td><label><input type="checkbox" data-sku="TAB-SA-DDL"><span class="sku-c">TAB-SA-DDL</span></label></td>
+          <td><label><input type="checkbox" data-sku="TAB-AM-DDL"><span class="sku-c">TAB-AM-DDL</span></label></td>
+          <td><input class="price-in" type="text" inputmode="numeric" placeholder="$" data-price="Rellena DDL 100 g"></td>
+        </tr>
+        <tr data-row="Mendiant 100 g">
+          <th>Mendiant 100 g</th>
+          <td><label><input type="checkbox" data-sku="TAB-BL-MEN"><span class="sku-c">TAB-BL-MEN</span></label></td>
+          <td><label><input type="checkbox" data-sku="TAB-CL-MEN"><span class="sku-c">TAB-CL-MEN</span></label></td>
+          <td><label><input type="checkbox" data-sku="TAB-SA-MEN"><span class="sku-c">TAB-SA-MEN</span></label></td>
+          <td><label><input type="checkbox" data-sku="TAB-AM-MEN"><span class="sku-c">TAB-AM-MEN</span></label></td>
+          <td><input class="price-in" type="text" inputmode="numeric" placeholder="$" data-price="Mendiant 100 g"></td>
+        </tr>
+        <tr data-row="Con almendras 100 g">
+          <th>Con almendras 100 g</th>
+          <td><label><input type="checkbox" data-sku="TAB-BL-ALM"><span class="sku-c">TAB-BL-ALM</span></label></td>
+          <td><label><input type="checkbox" data-sku="TAB-CL-ALM"><span class="sku-c">TAB-CL-ALM</span></label></td>
+          <td><label><input type="checkbox" data-sku="TAB-SA-ALM"><span class="sku-c">TAB-SA-ALM</span></label></td>
+          <td><label><input type="checkbox" data-sku="TAB-AM-ALM"><span class="sku-c">TAB-AM-ALM</span></label></td>
+          <td><input class="price-in" type="text" inputmode="numeric" placeholder="$" data-price="Con almendras 100 g"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="items">
+
+    <div class="item">
+      <div class="thumb" data-img="IMG_3717.JPG"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">TAB-BL/CL/SA/AM-100</span>
+          <h3 class="name">Tabletas macizas â€” las cuatro variedades</h3>
+          <span class="price none">Precio pendiente</span>
+        </div>
+        <p class="desc">Chocolate belga puro, sin agregados. Disponibles en blanco, con leche,
+          semiamargo 54,5% y amargo 80% de cacao.</p>
+        <div class="meta"><span class="cat">Tabletas</span><span class="chip gap">Falta precio</span>
+          <span class="fn">IMG_3717.JPG</span></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="thumb" data-img="_MG_1132.JPG"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">TAB-Â·Â·-MEN</span>
+          <h3 class="name">Tabletas mendiant 100 g</h3>
+          <span class="price none">Precio pendiente</span>
+        </div>
+        <p class="desc">Con nueces, almendras y castaÃ±as de cajÃº activadas y tostadas, mÃ¡s arÃ¡ndanos.
+          En la versiÃ³n de semiamargo los arÃ¡ndanos se reemplazan por frambuesas liofilizadas.</p>
+        <div class="meta"><span class="cat">Tabletas</span><span class="chip gap">Falta precio</span>
+          <span class="fn">_MG_1132.JPG</span></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="thumb" data-img="IMG_3824.JPG"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">TAB-SA-MEN</span>
+          <h3 class="name">Tableta mendiant semiamargo 54,5%</h3>
+          <span class="price none">Precio pendiente</span>
+        </div>
+        <p class="desc">La versiÃ³n con frambuesas liofilizadas en lugar de arÃ¡ndanos, sobre chocolate
+          semiamargo 54,5% de cacao.</p>
+        <div class="meta"><span class="cat">Tabletas</span><span class="chip gap">Falta precio</span>
+          <span class="fn">IMG_3824.JPG</span></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="thumb" data-img="IMG_3845.JPG"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">TAB-BL-DDL</span>
+          <h3 class="name">Tableta de chocolate blanco rellena de dulce de leche</h3>
+          <span class="price none">Precio pendiente</span>
+        </div>
+        <p class="desc">Cien gramos de chocolate blanco belga con un corazÃ³n de dulce de leche.</p>
+        <div class="meta"><span class="cat">Tabletas</span><span class="chip gap">Falta precio</span>
+          <span class="fn">IMG_3845.JPG</span></div>
+      </div>
+    </div>
+
+    <div class="item flag-check">
+      <div class="thumb" data-img="IMG_3727.JPG"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">TAB-SA-100 Â· TAB-AM-100</span>
+          <h3 class="name">Tableta maciza oscura</h3>
+          <span class="price none">Precio pendiente</span>
+        </div>
+        <p class="desc">Tableta maciza de chocolate oscuro, con molde de pirÃ¡mides.</p>
+        <div class="q soft">En la foto no podemos distinguir si es la de <strong>semiamargo 54,5%</strong> o la de
+          <strong>amargo 80%</strong>. Decinos cuÃ¡l es para asignarla bien.</div>
+        <div class="meta"><span class="cat">Tabletas</span><span class="chip check">Confirmar</span>
+          <span class="fn">IMG_3727.JPG</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============ DUBAI ============ -->
+<section>
+  <div class="sec-head">
+    <h2>EdiciÃ³n Dubai</h2>
+    <span class="count">4 productos</span>
+  </div>
+  <p class="sec-note">
+    Por las fotos entendimos que los <strong>dos alfajores Dubai</strong> son uno con cobertura de pistacho
+    y otro con cobertura de chocolate con leche, los dos con pistacho picado encima. Confirmanos si es asÃ­.
+  </p>
+  <div class="items">
+
+    <div class="item flag-check">
+      <div class="thumb" data-img="WhatsApp Image 2026-04-13 at 11.07.27.jpeg"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">DUB-BOM08</span>
+          <h3 class="name">Caja 8 bombones Dubai</h3>
+          <span class="price">$35.000</span>
+        </div>
+        <p class="desc">Ocho bombones de la ediciÃ³n Dubai en caja negra con el sello dorado.</p>
+        <div class="q soft">Nos dijiste que la caja trae <strong>4 variedades diferentes</strong>, pero en la foto
+          los ocho se ven iguales. Â¿CuÃ¡les son las cuatro?</div>
+        <div class="meta"><span class="cat">EdiciÃ³n Dubai</span><span class="chip check">Confirmar</span>
+          <span class="fn">WhatsApp Image 2026-04-13 at 11.07.27.jpeg</span></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="thumb" data-img="WhatsApp Image 2026-04-13 at 11.07.27 (1).jpeg"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">DUB-BOX</span>
+          <h3 class="name">Box Dubai â€” tableta + 2 alfajores</h3>
+          <span class="price">$55.300</span>
+        </div>
+        <p class="desc">La ediciÃ³n completa: una tableta Dubai de aproximadamente 250 gramos y dos alfajores,
+          uno con cobertura de pistacho y otro de chocolate con leche, los dos terminados con pistacho picado.</p>
+        <div class="meta"><span class="cat">EdiciÃ³n Dubai</span><span class="chip ok">Listo</span>
+          <span class="fn">WhatsApp Image ... (1).jpeg</span></div>
+      </div>
+    </div>
+
+    <div class="item">
+      <div class="thumb" data-img="WhatsApp Image 2026-04-13 at 11.07.27 (1).jpeg"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">DUB-ALF02</span>
+          <h3 class="name">Box 2 alfajores Dubai</h3>
+          <span class="price">$15.000</span>
+        </div>
+        <p class="desc">Los dos alfajores de la ediciÃ³n Dubai, sin la tableta. Uno con cobertura de pistacho
+          y otro de chocolate con leche.</p>
+        <div class="meta"><span class="cat">EdiciÃ³n Dubai</span><span class="chip ok">Listo</span>
+          <span class="fn">WhatsApp Image ... (1).jpeg</span></div>
+      </div>
+    </div>
+
+    <div class="item flag-gap">
+      <div class="thumb" data-img="WhatsApp Image 2026-04-13 at 11.07.27 (1).jpeg"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">DUB-TAB</span>
+          <h3 class="name">Tableta Dubai 250 g</h3>
+          <span class="price none">Precio pendiente</span>
+        </div>
+        <p class="desc">La tableta Dubai sola, de aproximadamente 250 gramos.</p>
+        <div class="q">Nos dijiste que se puede comprar sola, pero nunca nos pasaste el precio.</div>
+        <div class="meta"><span class="cat">EdiciÃ³n Dubai</span><span class="chip gap">Falta precio</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ============ GALESA ============ -->
+<section>
+  <div class="sec-head">
+    <h2>Torta Galesa</h2>
+    <span class="count">1 producto</span>
+  </div>
+  <div class="items">
+    <div class="item flag-gap">
+      <div class="thumb" data-img="WhatsApp Image 2026-04-13 at 11.07.27 (2).jpeg"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">GAL-01</span>
+          <h3 class="name">Torta Galesa</h3>
+          <span class="price none">Precio pendiente</span>
+        </div>
+        <p class="desc">Bien hÃºmeda, con nueces y frutas integradas en la masa y pasas de uva maceradas en ron.
+          Un clÃ¡sico para la merienda.</p>
+        <div class="q">Nos faltan dos cosas: <strong>el precio de la torta entera</strong> y su
+          <strong>peso o tamaÃ±o</strong>. AdemÃ¡s, la Ãºnica imagen que tenemos es la placa de Instagram con
+          textos encima, que no sirve para la ficha del producto: hace falta una foto limpia.</div>
+        <div class="meta"><span class="cat">Torta Galesa</span><span class="chip gap">Falta precio y foto</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ============ ESPECIALES ============ -->
+<section>
+  <div class="sec-head">
+    <h2>Piezas especiales</h2>
+    <span class="count">2 productos</span>
+  </div>
+  <p class="sec-note">
+    Encontramos estas fotos entre las que mandaste, pero <strong>nunca nos hablaste de estos productos</strong>
+    y no figuran en tu lista de precios. Decinos si los seguÃ­s haciendo y si querÃ©s que vayan en la tienda.
+  </p>
+  <div class="items">
+
+    <div class="item flag-gap">
+      <div class="thumb" data-img="IMG_3906.JPG"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">ESP-NOVIOS</span>
+          <h3 class="name">Zapatos de novios en chocolate</h3>
+          <span class="price none">Sin precio</span>
+        </div>
+        <p class="desc">Par de zapatos modelados en chocolate, uno de hombre y un stiletto, con terminaciÃ³n
+          aterciopelada. Pieza para casamientos.</p>
+        <div class="q">Â¿Lo seguÃ­s haciendo? Necesitamos <strong>precio, si es a pedido y con cuÃ¡ntos dÃ­as
+          de anticipaciÃ³n</strong>.</div>
+        <div class="meta"><span class="cat">Piezas especiales</span><span class="chip gap">Sin datos</span>
+          <span class="fn">IMG_3906.JPG Â· IMG_3901.JPG Â· IMG_3897.JPG</span></div>
+      </div>
+    </div>
+
+    <div class="item flag-gap">
+      <div class="thumb" data-img="IMG_3913.JPG"></div>
+      <div class="meat">
+        <div class="topline">
+          <span class="sku">ESP-STILETTO</span>
+          <h3 class="name">Stiletto rojo con bombones corazÃ³n</h3>
+          <span class="price none">Sin precio</span>
+        </div>
+        <p class="desc">Zapato de taco en chocolate con terminaciÃ³n aterciopelada roja, acompaÃ±ado de bombones
+          con forma de corazÃ³n.</p>
+        <div class="q">Parece una pieza de San ValentÃ­n o DÃ­a de la Madre. Â¿Es de temporada o estÃ¡ todo el aÃ±o?
+          Nos falta el <strong>precio</strong>.</div>
+        <div class="meta"><span class="cat">Piezas especiales</span><span class="chip gap">Sin datos</span>
+          <span class="fn">IMG_3913.JPG</span></div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<div class="closing">
+  <h2>Lo que necesitamos de vos para terminar</h2>
+  <p>Con esto podemos cargar la tienda completa. Si algo no lo tenÃ©s definido todavÃ­a, decinos igual
+    y lo dejamos sin publicar hasta que lo resuelvas.</p>
+  <div class="answers">
+    <label>
+      <span class="qlab">Â¿Los boxes son surtido fijo o el cliente elige los sabores?
+        <span class="qhint">Cambia cÃ³mo se arma la ficha y el carrito.</span></span>
+      <textarea data-q="Surtido fijo o a elecciÃ³n"></textarea>
+    </label>
+    <label>
+      <span class="qlab">Â¿VendÃ©s bombones o alfajores por unidad?
+        <span class="qhint">O siempre van en box.</span></span>
+      <textarea data-q="Venta por unidad"></textarea>
+    </label>
+    <label>
+      <span class="qlab">Â¿CÃ³mo hacÃ©s los envÃ­os?
+        <span class="qhint">A quÃ© zonas llegÃ¡s, si hay retiro en un punto y cÃ³mo manejÃ¡s el frÃ­o.
+        En chocolate esto define quÃ© podemos prometer en la tienda.</span></span>
+      <textarea data-q="EnvÃ­os"></textarea>
+    </label>
+    <label>
+      <span class="qlab">Stock y dÃ­as de preparaciÃ³n
+        <span class="qhint">Nos dijiste que generalmente tenÃ©s stock. Â¿CuÃ¡ntos dÃ­as de anticipaciÃ³n
+        pedÃ­s para un pedido grande?</span></span>
+      <textarea data-q="Stock y preparaciÃ³n"></textarea>
+    </label>
+    <label>
+      <span class="qlab">Â¿QuÃ© es el snack con gianduja?
+        <span class="qhint">QuÃ© contiene, quÃ© peso tiene y cÃ³mo se presenta.</span></span>
+      <textarea data-q="Snack gianduja"></textarea>
+    </label>
+    <label>
+      <span class="qlab">Cualquier otra cosa que quieras agregar
+        <span class="qhint">Productos que falten, precios que hayan cambiado, lo que sea.</span></span>
+      <textarea data-q="Comentarios"></textarea>
+    </label>
+  </div>
+</div>
+
+<div class="sendbar">
+  <div class="prog">
+    <span class="pnum" id="pnum">0 de 23 productos revisados</span>
+    <span class="bar"><i id="pbar"></i></span>
+  </div>
+  <div class="acts">
+    <button type="button" class="copy" id="btn-copy">Copiar respuestas</button>
+    <a class="send" id="btn-send" href="#" target="_blank" rel="noopener">Enviar por WhatsApp</a>
+  </div>
+  <p class="toast" id="toast">MarcÃ¡ cada producto como correcto o pedÃ­ un cambio. Se va guardando solo en este dispositivo.</p>
+</div>
+
+<footer>
+  Listado armado con la informaciÃ³n que Vanesa Borio enviÃ³ el 29 de mayo de 2026 y las fotos del relevamiento.
+  Los cÃ³digos SKU son internos de la tienda y no se muestran al cliente final.
+</footer>
+
+</div>
+
+<script src="thumbs.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  /* ============================================================
+     NÃºmero de WhatsApp al que llegan las respuestas.
+     Formato internacional sin +, sin espacios y sin guiones.
+     Ej. para Buenos Aires: 5491155551234
+     ============================================================ */
+  var WA_NUMBER = "5491164707497";
+
+  var STORE = "vb-revision-v1";
+
+  /* ---------- miniaturas ---------- */
+  var map = window.THUMBS || {};
+  document.querySelectorAll('.thumb[data-img]').forEach(function(el){
+    var src = map[el.getAttribute('data-img')];
+    if(src){
+      var img = document.createElement('img');
+      img.src = src; img.alt = ''; img.loading = 'lazy';
+      el.appendChild(img);
+    } else if(!el.querySelector('.nofoto')){
+      var s = document.createElement('span');
+      s.className = 'nofoto'; s.textContent = 'Sin foto';
+      el.appendChild(s);
+    }
+  });
+
+  /* ---------- controles de revisiÃ³n por producto ---------- */
+  var items = [];
+  document.querySelectorAll('.item').forEach(function(card, i){
+    var skuEl = card.querySelector('.sku');
+    var nameEl = card.querySelector('.name');
+    if(!skuEl || !nameEl) return;
+    var sku = skuEl.textContent.trim();
+    var name = nameEl.textContent.trim();
+    var id = 'p' + i;
+
+    var wrap = document.createElement('div');
+    wrap.className = 'review';
+
+    var yes = document.createElement('button');
+    yes.type = 'button'; yes.className = 'rbtn yes';
+    yes.setAttribute('aria-pressed','false');
+    yes.textContent = 'EstÃ¡ bien';
+
+    var no = document.createElement('button');
+    no.type = 'button'; no.className = 'rbtn no';
+    no.setAttribute('aria-pressed','false');
+    no.textContent = 'Hay que cambiar algo';
+
+    var fix = document.createElement('textarea');
+    fix.className = 'fix';
+    fix.placeholder = 'Contanos quÃ© hay que corregir: el nombre, la descripciÃ³n, el precio, la fotoâ€¦';
+    fix.setAttribute('aria-label','QuÃ© cambiar en ' + name);
+
+    wrap.appendChild(yes); wrap.appendChild(no);
+    card.querySelector('.meat').appendChild(wrap);
+    card.querySelector('.meat').appendChild(fix);
+
+    var rec = {id:id, sku:sku, name:name, state:null, fix:fix, yes:yes, no:no};
+    items.push(rec);
+
+    yes.addEventListener('click', function(){ setState(rec, rec.state === 'ok' ? null : 'ok'); });
+    no.addEventListener('click', function(){ setState(rec, rec.state === 'fix' ? null : 'fix'); });
+    fix.addEventListener('input', function(){ save(); });
+  });
+
+  function setState(rec, st){
+    rec.state = st;
+    rec.yes.setAttribute('aria-pressed', st === 'ok' ? 'true' : 'false');
+    rec.no.setAttribute('aria-pressed', st === 'fix' ? 'true' : 'false');
+    rec.fix.classList.toggle('on', st === 'fix');
+    if(st !== 'fix') rec.fix.value = '';
+    update(); save();
+  }
+
+  /* ---------- referencias ---------- */
+  var grid = document.getElementById('tab-grid');
+  var answers = Array.prototype.slice.call(document.querySelectorAll('.answers textarea'));
+  var pnum = document.getElementById('pnum');
+  var pbar = document.getElementById('pbar');
+  var toast = document.getElementById('toast');
+  var btnSend = document.getElementById('btn-send');
+  var btnCopy = document.getElementById('btn-copy');
+
+  var colNames = [];
+  document.querySelectorAll('thead th').forEach(function(th, i){
+    if(i > 0 && i < 5) colNames[i] = th.textContent.trim();
+  });
+
+  if(grid){
+    grid.addEventListener('input', function(){ save(); });
+    grid.addEventListener('change', function(){ save(); });
+  }
+  answers.forEach(function(t){ t.addEventListener('input', save); });
+
+  /* ---------- progreso ---------- */
+  function update(){
+    var done = items.filter(function(r){ return r.state; }).length;
+    pnum.textContent = done + ' de ' + items.length + ' productos revisados';
+    pbar.style.width = (items.length ? (done/items.length*100) : 0) + '%';
+  }
+
+  /* ---------- armado del mensaje ---------- */
+  function build(){
+    var L = [];
+    L.push('*RevisiÃ³n de productos â€” Vanesa Borio*');
+    L.push('');
+
+    var ok = items.filter(function(r){ return r.state === 'ok'; });
+    var fx = items.filter(function(r){ return r.state === 'fix'; });
+    var pend = items.filter(function(r){ return !r.state; });
+
+    if(ok.length){
+      L.push('APRUEBO (' + ok.length + '): ' + ok.map(function(r){ return r.sku; }).join(', '));
+      L.push('');
+    }
+    if(fx.length){
+      L.push('CAMBIOS (' + fx.length + '):');
+      fx.forEach(function(r){
+        var t = r.fix.value.trim();
+        L.push('â€¢ ' + r.sku + ' â€” ' + r.name + (t ? ': ' + t : ': (sin detalle)'));
+      });
+      L.push('');
+    }
+    if(pend.length){
+      L.push('SIN REVISAR (' + pend.length + '): ' + pend.map(function(r){ return r.sku; }).join(', '));
+      L.push('');
+    }
+
+    var rows = [];
+    if(grid){
+      Array.prototype.forEach.call(grid.querySelectorAll('tr'), function(tr){
+        var label = tr.getAttribute('data-row') || '';
+        var price = tr.querySelector('.price-in');
+        var p = price ? price.value.trim() : '';
+        var makes = [];
+        Array.prototype.forEach.call(tr.querySelectorAll('input[type=checkbox]'), function(cb){
+          if(cb.checked){
+            var td = cb.closest('td');
+            makes.push(colNames[td.cellIndex] || cb.getAttribute('data-sku'));
+          }
+        });
+        if(p || makes.length){
+          rows.push('â€¢ ' + label + ' â€” ' + (p ? '$' + p.replace(/^\$\s*/,'') : 'sin precio') +
+                    (makes.length ? ' â€” hago: ' + makes.join(', ') : ' â€” no marcÃ³ variedades'));
+        }
+      });
+    }
+    if(rows.length){
+      L.push('TABLETAS:');
+      rows.forEach(function(r){ L.push(r); });
+      L.push('');
+    }
+
+    var qs = [];
+    answers.forEach(function(t){
+      var v = t.value.trim();
+      if(v) qs.push('â€¢ ' + t.getAttribute('data-q') + ': ' + v);
+    });
+    if(qs.length){
+      L.push('RESPUESTAS:');
+      qs.forEach(function(q){ L.push(q); });
+    }
+
+    return L.join('\n').trim();
+  }
+
+  /* ---------- guardado local ---------- */
+  function save(){
+    try{
+      var d = {items:{}, grid:{prices:{}, checks:{}}, answers:{}};
+      items.forEach(function(r){ d.items[r.sku] = {s:r.state, t:r.fix.value}; });
+      if(grid){
+        Array.prototype.forEach.call(grid.querySelectorAll('.price-in'), function(inp){
+          d.grid.prices[inp.getAttribute('data-price')] = inp.value;
+        });
+        Array.prototype.forEach.call(grid.querySelectorAll('input[type=checkbox]'), function(cb){
+          d.grid.checks[cb.getAttribute('data-sku')] = cb.checked;
+        });
+      }
+      answers.forEach(function(t){ d.answers[t.getAttribute('data-q')] = t.value; });
+      localStorage.setItem(STORE, JSON.stringify(d));
+    }catch(e){ /* modo privado: seguimos sin guardar */ }
+    refreshLink();
+  }
+
+  function restore(){
+    var d;
+    try{ d = JSON.parse(localStorage.getItem(STORE) || 'null'); }catch(e){ d = null; }
+    if(!d) return;
+    items.forEach(function(r){
+      var s = d.items && d.items[r.sku];
+      if(!s) return;
+      if(s.s) setStateQuiet(r, s.s);
+      if(s.t) r.fix.value = s.t;
+    });
+    if(grid && d.grid){
+      Array.prototype.forEach.call(grid.querySelectorAll('.price-in'), function(inp){
+        var v = d.grid.prices && d.grid.prices[inp.getAttribute('data-price')];
+        if(v) inp.value = v;
+      });
+      Array.prototype.forEach.call(grid.querySelectorAll('input[type=checkbox]'), function(cb){
+        if(d.grid.checks && d.grid.checks[cb.getAttribute('data-sku')]) cb.checked = true;
+      });
+    }
+    answers.forEach(function(t){
+      var v = d.answers && d.answers[t.getAttribute('data-q')];
+      if(v) t.value = v;
+    });
+  }
+
+  function setStateQuiet(rec, st){
+    rec.state = st;
+    rec.yes.setAttribute('aria-pressed', st === 'ok' ? 'true' : 'false');
+    rec.no.setAttribute('aria-pressed', st === 'fix' ? 'true' : 'false');
+    rec.fix.classList.toggle('on', st === 'fix');
+  }
+
+  /* ---------- envÃ­o ---------- */
+  function refreshLink(){
+    var msg = build();
+    var url = 'https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg);
+    btnSend.href = url;
+    if(msg.length > 1600){
+      toast.className = 'toast warn';
+      toast.textContent = 'Tu respuesta quedÃ³ larga (' + msg.length + ' caracteres). ' +
+        'Si WhatsApp te la corta, usÃ¡ Â«Copiar respuestasÂ» y pegala en el chat.';
+    } else {
+      toast.className = 'toast';
+      toast.textContent = 'Se va guardando solo en este dispositivo. Cuando termines, tocÃ¡ Enviar por WhatsApp.';
+    }
+  }
+
+  btnCopy.addEventListener('click', function(){
+    var msg = build();
+    function done(){
+      toast.className = 'toast done';
+      toast.textContent = 'Copiado. Pegalo en el chat de WhatsApp.';
+    }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(msg).then(done, fallback);
+    } else { fallback(); }
+    function fallback(){
+      var ta = document.createElement('textarea');
+      ta.value = msg;
+      ta.style.position = 'fixed'; ta.style.opacity = '0';
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand('copy'); done(); }
+      catch(e){
+        toast.className = 'toast warn';
+        toast.textContent = 'No pudimos copiar automÃ¡ticamente. SeleccionÃ¡ el texto a mano.';
+      }
+      document.body.removeChild(ta);
+    }
+  });
+
+  restore();
+  update();
+  refreshLink();
+})();
+</script>
+
+</body>
+</html>
